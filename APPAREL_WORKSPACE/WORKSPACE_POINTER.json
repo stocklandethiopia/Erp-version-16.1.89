@@ -1,0 +1,20 @@
+{
+  "artifact_name": "STOCKLAND_APPAREL_ENTERPRISE_WORKSPACE_2026-11-15.zip",
+  "artifact_available_in": "ChatGPT project Library",
+  "sha256": "9593071b85d9a7d3a91a908fe0975106df3aa5977efd6b52de26abb649db30d4",
+  "bytes": 158956,
+  "uploaded_as_git_blob": false,
+  "status": "POINTER_ONLY_BINARY_NOT_PRESENT_IN_THIS_REPOSITORY",
+  "source_baseline": {
+    "canonical_repository": "aistockland-web/Erp-version-16.1.89",
+    "inspected_commit": "fe937ea97123a243c410696e4007c48d3332803d",
+    "owner_archive_repository": "stocklandethiopia/Erp-version-16.1.89",
+    "owner_archive_main_commit": "d665d92b45345d7868907d30f394a7b755d4a7db",
+    "histories_are_unrelated": true
+  },
+  "separate_16_2_18_installer": {
+    "filename": "STOCKLAND_ERP_16.2.18_MASTER_WORDPRESS_INSTALLER (8).zip",
+    "sha256": "aee5c551bd3367717091de066bfd5f86d8298dda1f6361d7534813d8087cd54e",
+    "canonical_commit_declared": false
+  }
+}
