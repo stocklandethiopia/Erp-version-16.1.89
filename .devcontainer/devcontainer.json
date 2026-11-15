@@ -1,0 +1,32 @@
+{
+  "name": "Stockland ERP — Exact 16.2.18 engineering workspace",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "workspace",
+  "workspaceFolder": "/workspaces/stockland-workspace",
+  "shutdownAction": "stopCompose",
+  "remoteUser": "vscode",
+  "updateRemoteUserUID": true,
+  "initializeCommand": "bash .devcontainer/initialize-workspace.sh",
+  "postCreateCommand": "bash /workspaces/stockland-workspace/.devcontainer/post-create.sh",
+  "features": {
+    "ghcr.io/devcontainers/features/python:1": { "version": "3.12" },
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers/features/docker-outside-of-docker:1": { "enableNonRootDocker": true }
+  },
+  "forwardPorts": [8080, 8082],
+  "portsAttributes": {
+    "8080": { "label": "Stockland ERP 16.2.18 — MariaDB 10.11 — private QA", "onAutoForward": "notify", "visibility": "private" },
+    "8082": { "label": "Stockland ERP 16.2.18 — MySQL 8.0.46 — private QA", "onAutoForward": "notify", "visibility": "private" }
+  },
+  "customizations": {
+    "vscode": { "extensions": [
+      "bmewburn.vscode-intelephense-client", "dbaeumer.vscode-eslint",
+      "DavidAnson.vscode-markdownlint", "EditorConfig.EditorConfig",
+      "esbenp.prettier-vscode", "GitHub.vscode-pull-request-github",
+      "ms-azuretools.vscode-docker", "redhat.vscode-yaml",
+      "GitHub.copilot", "GitHub.copilot-chat"
+    ]}
+  },
+  "hostRequirements": { "cpus": 2, "memory": "8gb", "storage": "32gb" },
+  "containerEnv": { "STOCKLAND_DEV_RELEASE_MODE": "approved-16.2.18" }
+}

@@ -1,0 +1,13 @@
+{
+  "canonical_repository": "aistockland-web/Erp-version-16.1.89",
+  "canonical_branch": "delivery/stockland-full-erp-completion-2026-11-11",
+  "merged_source_commit": "fe937ea97123a243c410696e4007c48d3332803d",
+  "source_tree_sha": "f89615a764cc3ce391380bf31b9d75b7b9e55357",
+  "installer_manifest_source_commit": "83a43bc0543ae45bfa9bdab52bbcd5c07b61aeb4",
+  "installer_version": "16.2.18",
+  "installer_sha256": "30b3f629e8303d0b30981f311f2f4d32499b012f21e1f44c7f237919aafc9916",
+  "actions_outer_artifact_sha256": "848101156d8410d36b0dcd1b29ca630784790785898c37d97589fae3e9aba96a",
+  "actions_run_id": 43640339960,
+  "actions_artifact_id": 14130879479,
+  "status": "CI_ACCEPTED_PACKAGE_BUILT_INSTALLER_VERIFIED_NOT_OWNER_RELEASE_APPROVED_NOT_DEPLOYED"
+}

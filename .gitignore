@@ -1,0 +1,9 @@
+# Local-only secrets and clones
+.env
+.devcontainer/.env
+canonical-source/
+**/.env
+**/auth.json
+**/token.json
+artifacts/
+*.log
