@@ -11,21 +11,24 @@
   "actions_outer_artifact_bytes": 2249086,
   "actions_run_id": 43649406224,
   "actions_artifact_id": 14134844691,
-  "matrix": "PASS: MariaDB 10.11 and MySQL 8.0.46 × PHP 8.3 and PHP 8.4; artifact publication PASS",
+  "matrix": "PASS: MariaDB 10.11 and MySQL 8.0.46 × PHP 8.3 and 8.4; artifact publication PASS",
   "workspace_repository": "stocklandethiopia/Erp-version-16.1.89",
   "workspace_branch": "workspace/stockland-final-integration-2026-11-15",
   "workspace_seed_commit": "413db3c4aad9b42942add5f986922f5ead3d0943",
-  "workspace_validation_commit": "6042005e9a04cd05671b45074ba7d00a6a3a7ed6",
+  "workspace_validation_workflow_commit": "6042005e9a04cd05671b45074ba7d00a6a3a7ed6",
+  "workspace_exact_artifact_verifier_commit": "e58a1e73cb9c93a8c38dc77305415ed9c9c5a268",
+  "workspace_post_create_marketplace_setup_commit": "690e7b8fd4567b01ee191a936fc74f73470d15d9",
   "workspace_repo_permissions": "admin=true,maintain=true,push=true",
   "canonical_repo_permissions": "pull=true,push=false",
-  "workspace_state": "REMOTE_BRANCH_COMMITTED; CODESPACE_NOT_YET_CREATED",
+  "workspace_contents": "CODESPACES_LAUNCHER_AND_RELEASE_EVIDENCE_ONLY; APPAREL_DOMAIN_FOLDER_REMAINS_IN_LOCAL_BUNDLE",
   "excluded_candidates": {
     "134": "OPEN_NOT_MERGED; not in 16.2.18 installer",
     "135": "OPEN_NOT_MERGED; exact-head browser gate failed; not in installer"
   },
-  "no_match_versions": [
+  "not_found_versions": [
     "16.2.98",
     "26.2.28"
   ],
-  "status": "POST_MERGE_CI_ACCEPTED_PACKAGE_BUILT_INSTALLER_VERIFIED; NOT OWNER RELEASE APPROVED; NOT DEPLOYED"
+  "state": "REMOTE_BRANCH_COMMITTED; CODESPACE_NOT_CREATED; APPAREL_DOMAIN_FOLDER_IN_LOCAL_BUNDLE",
+  "release_status": "POST_MERGE_CI_ACCEPTED_PACKAGE_BUILT_INSTALLER_VERIFIED; NOT OWNER RELEASE APPROVED; NOT DEPLOYED"
 }
