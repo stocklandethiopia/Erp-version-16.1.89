@@ -1,0 +1,98 @@
+name: Stockland workspace and Codespaces validation
+
+on:
+  push:
+    branches: [workspace/stockland-final-integration-2026-11-15]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: stockland-workspace-validation-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Validate pinned source, container and disposable web services
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout workspace branch
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+
+      - name: Validate configuration and source pins
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m json.tool .devcontainer/devcontainer.json >/dev/null
+          python3 -m pip install --disable-pip-version-check pyyaml
+          python3 - <<'PY'
+          import json, pathlib, yaml
+          root=pathlib.Path('.')
+          yaml.safe_load((root/'.devcontainer/docker-compose.yml').read_text())
+          baseline=json.loads((root/'workspace/SOURCE_BASELINE.json').read_text())
+          assert baseline['merged_source_commit']=='fe937ea97123a243c410696e4007c48d3332803d'
+          assert baseline['source_tree_sha']=='f89615a764cc3ce391380bf31b9d75b7b9e55357'
+          print('PASS devcontainer JSON, Compose YAML and source provenance')
+          PY
+          bash -n .devcontainer/initialize-host.sh
+          bash -n .devcontainer/initialize-workspace.sh
+          bash -n .devcontainer/post-create.sh
+          bash -n codespaces/verify-exact-16.2.18.sh
+          python3 -m py_compile codespaces/verify_installer_zip.py
+          git check-ignore .env .devcontainer/.env canonical-source/
+
+      - name: Clone and verify the exact canonical source tree
+        shell: bash
+        run: |
+          set -euo pipefail
+          bash .devcontainer/initialize-workspace.sh
+          test "$(git -C canonical-source rev-parse 'HEAD^{tree}')" = "f89615a764cc3ce391380bf31b9d75b7b9e55357"
+          test "$(git -C canonical-source rev-parse HEAD)" = "fe937ea97123a243c410696e4007c48d3332803d"
+          echo "PASS canonical source commit and full tree are pinned"
+
+      - name: Validate Compose configuration and build toolchain
+        shell: bash
+        run: |
+          set -euo pipefail
+          docker compose --project-directory .devcontainer -f .devcontainer/docker-compose.yml --profile mysql8 config --quiet
+          docker build --pull --tag stockland-erp-codespaces-qa --file .devcontainer/Dockerfile .devcontainer
+          docker run --rm stockland-erp-codespaces-qa php -v
+          docker run --rm stockland-erp-codespaces-qa node --version
+          docker run --rm stockland-erp-codespaces-qa php -m
+
+      - name: Start isolated WordPress and database services
+        shell: bash
+        run: |
+          set -euo pipefail
+          docker compose --project-directory .devcontainer -f .devcontainer/docker-compose.yml --profile mysql8 up -d --build
+          for port in 8080 8082; do
+            ready=false
+            for attempt in $(seq 1 60); do
+              if curl --fail --silent "http://127.0.0.1:$port/wp-login.php" >/dev/null; then ready=true; break; fi
+              sleep 2
+            done
+            test "$ready" = true
+          done
+          docker compose --project-directory .devcontainer -f .devcontainer/docker-compose.yml --profile mysql8 ps
+
+      - name: Exercise approved-mode post-create bootstrap
+        shell: bash
+        run: |
+          set -euo pipefail
+          docker compose --project-directory .devcontainer -f .devcontainer/docker-compose.yml exec -T workspace bash /workspaces/stockland-workspace/.devcontainer/post-create.sh
+          docker compose --project-directory .devcontainer -f .devcontainer/docker-compose.yml exec -T workspace wp --info
+
+      - name: Stop and remove disposable containers and databases
+        if: always()
+        shell: bash
+        run: |
+          docker compose --project-directory .devcontainer -f .devcontainer/docker-compose.yml --profile mysql8 down --volumes --remove-orphans
