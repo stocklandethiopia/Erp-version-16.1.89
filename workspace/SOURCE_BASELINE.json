@@ -3,11 +3,29 @@
   "canonical_branch": "delivery/stockland-full-erp-completion-2026-11-11",
   "merged_source_commit": "fe937ea97123a243c410696e4007c48d3332803d",
   "source_tree_sha": "f89615a764cc3ce391380bf31b9d75b7b9e55357",
-  "installer_manifest_source_commit": "83a43bc0543ae45bfa9bdab52bbcd5c07b61aeb4",
+  "installer_manifest_source_commit": "fe937ea97123a243c410696e4007c48d3332803d",
   "installer_version": "16.2.18",
-  "installer_sha256": "30b3f629e8303d0b30981f311f2f4d32499b012f21e1f44c7f237919aafc9916",
-  "actions_outer_artifact_sha256": "848101156d8410d36b0dcd1b29ca630784790785898c37d97589fae3e9aba96a",
-  "actions_run_id": 43640339960,
-  "actions_artifact_id": 14130879479,
-  "status": "CI_ACCEPTED_PACKAGE_BUILT_INSTALLER_VERIFIED_NOT_OWNER_RELEASE_APPROVED_NOT_DEPLOYED"
+  "installer_sha256": "4a6bb09b4f5819873fff7f1417de20494c7d791003faf9a55649458458977021",
+  "installer_bytes": 2254042,
+  "actions_outer_artifact_sha256": "561c3e351c255ea59b29db54bf61e8e8e142434a7bcb6463a25b37db2e1e7c5c",
+  "actions_outer_artifact_bytes": 2249086,
+  "actions_run_id": 43649406224,
+  "actions_artifact_id": 14134844691,
+  "matrix": "PASS: MariaDB 10.11 and MySQL 8.0.46 × PHP 8.3 and PHP 8.4; artifact publication PASS",
+  "workspace_repository": "stocklandethiopia/Erp-version-16.1.89",
+  "workspace_branch": "workspace/stockland-final-integration-2026-11-15",
+  "workspace_seed_commit": "413db3c4aad9b42942add5f986922f5ead3d0943",
+  "workspace_validation_commit": "6042005e9a04cd05671b45074ba7d00a6a3a7ed6",
+  "workspace_repo_permissions": "admin=true,maintain=true,push=true",
+  "canonical_repo_permissions": "pull=true,push=false",
+  "workspace_state": "REMOTE_BRANCH_COMMITTED; CODESPACE_NOT_YET_CREATED",
+  "excluded_candidates": {
+    "134": "OPEN_NOT_MERGED; not in 16.2.18 installer",
+    "135": "OPEN_NOT_MERGED; exact-head browser gate failed; not in installer"
+  },
+  "no_match_versions": [
+    "16.2.98",
+    "26.2.28"
+  ],
+  "status": "POST_MERGE_CI_ACCEPTED_PACKAGE_BUILT_INSTALLER_VERIFIED; NOT OWNER RELEASE APPROVED; NOT DEPLOYED"
 }

@@ -1,15 +1,22 @@
-# Codespaces — Stockland ERP exact 16.2.18
+# Stockland ERP — one-click Codespaces workspace
 
-This holder repository clones the canonical ERP at the pinned merge SHA into canonical-source/. It checks the origin and exact Git tree; modified/non-Git folders are preserved and rejected, never overwritten. The source is mounted at /workspaces/stockland-erp; this workspace is mounted at /workspaces/stockland-workspace.
-
-Default environment: PHP 8.3, Node 22, Python 3.12, Composer, GitHub CLI, Docker Compose and verified WP-CLI. It starts disposable WordPress + MariaDB 10.11 at private port 8080. MySQL 8.0.46 is an optional profile on private port 8082. The 16.2.18-only release guard skips historical 16.2.13/16.2.15 intake, repair and activation.
-
-Create a Codespace:
+Click to create the workspace from this branch:
 https://github.com/codespaces/new?repo=stocklandethiopia%2FErp-version-16.1.89&ref=workspace%2Fstockland-final-integration-2026-11-15
 
-Then authenticate gh with Actions read access to the canonical repository and run:
+## Source pin
+- Canonical repository: aistockland-web/Erp-version-16.1.89
+- Delivery branch: delivery/stockland-full-erp-completion-2026-11-11
+- Commit: fe937ea97123a243c410696e4007c48d3332803d
+- Tree: f89615a764cc3ce391380bf31b9d75b7b9e55357
+
+The host initializer clones the canonical repo to canonical-source/, checks the origin and exact tree, and refuses to overwrite an unknown or modified clone. The canonical source remains the application; this repository is the launcher.
+
+## Environment
+PHP 8.3, Node 22, Python 3.12, Composer, GitHub CLI, Docker-outside-of-Docker, checksum-verified WP-CLI, MariaDB 10.11, optional MySQL 8.0.46 and private QA ports 8080/8082. Local credentials are random and ignored by Git. The startup guard selects only 16.2.18 and skips legacy .13/.15 intake.
+
+After GitHub CLI sign-in, run:
 bash /workspaces/stockland-workspace/codespaces/verify-exact-16.2.18.sh all
 
-That helper downloads Actions artifact 14130879479 from run 43640339960, verifies outer and inner SHA-256, manifest inventory and commit/tree parity, then installs only on the Compose disposable database. It verifies WordPress DB_NAME/DB_HOST before reset. Never run against live Stockland.
+It downloads original Actions artifact 14134844691 from run 43649406224, verifies outer SHA-256 561c3e351c255ea59b29db54bf61e8e8e142434a7bcb6463a25b37db2e1e7c5c, verifies inner installer SHA-256 4a6bb09b4f5819873fff7f1417de20494c7d791003faf9a55649458458977021 and its sidecar, validates manifest source commit/tree plus 124 file hashes, then installs only in disposable WordPress databases. It checks database host/name before any reset.
 
-The requested 2-core / 8-GB / 32-GB machine is subject to account availability/quota; keep forwarded ports private. The Codespace is created only after the repository owner clicks Create.
+The connected GitHub account has admin/push access on this launcher repository but only read access on canonical aistockland-web/Erp-version-16.1.89. Canonical source pushes require the owner to grant write access or reconnect under the authorized canonical owner account. Never paste a PAT into chat.
