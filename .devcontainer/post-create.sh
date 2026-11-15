@@ -48,9 +48,15 @@ if command -v codex >/dev/null 2>&1; then
 else
   bash scripts/codespaces/bootstrap_codex.sh
 fi
+export PATH="$HOME/.local/bin:$PATH"
+if command -v codex >/dev/null 2>&1; then
+  # Register the repository-pinned marketplace; installation/authentication remain Owner-controlled.
+  codex plugin marketplace add . || echo 'Marketplace registration can be retried after sign-in: codex plugin marketplace add .'
+fi
 
 echo 'PASS pinned Stockland ERP 16.2.18 Codespaces toolchain prepared.'
 echo 'Historical .13/.15 candidate flows were not run. No live credentials or business data were loaded.'
 echo 'To verify the exact post-merge 16.2.18 artifact on disposable WordPress sites:'
 echo '  bash /workspaces/stockland-workspace/codespaces/verify-exact-16.2.18.sh all'
 echo 'To sign into local Codex CLI later: codex login --device-auth'
+echo 'After sign-in, open /plugins and choose Install for Superpowers under Stockland ERP Engineering.'
