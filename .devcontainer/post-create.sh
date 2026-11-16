@@ -4,6 +4,11 @@
 set -euo pipefail
 cd /workspaces/stockland-erp
 
+# initializeCommand runs on the Codespaces host; its cloned files can be
+# root-owned when mounted into the dev container. Give the remote workspace
+# user ownership so Composer/npm and normal source editing work without
+# broadening permissions or changing the pinned source contents.
+sudo chown -R "$(id -u):$(id -g)" "$PWD"
 git config --global --add safe.directory "$PWD"
 EXPECTED_COMMIT='fe937ea97123a243c410696e4007c48d3332803d'
 EXPECTED_TREE='f89615a764cc3ce391380bf31b9d75b7b9e55357'
