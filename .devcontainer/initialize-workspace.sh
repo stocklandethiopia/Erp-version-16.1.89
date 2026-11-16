@@ -9,7 +9,10 @@ SOURCE="$ROOT/canonical-source"
 bash "$ROOT/.devcontainer/initialize-host.sh"
 if [[ ! -d "$SOURCE/.git" ]]; then
   [[ ! -e "$SOURCE" ]] || { echo 'canonical-source exists but is not a Git repository; preserving it and refusing overwrite.' >&2; exit 1; }
-  git clone --no-checkout "$REPO" "$SOURCE"
+  # A no-checkout clone has every tracked path absent, so git status reports
+  # deletions. Use a normal branch checkout before applying the cleanliness
+  # guard; never mistake a fresh clone for a user-modified working tree.
+  git clone --branch "$BRANCH" --single-branch "$REPO" "$SOURCE"
 fi
 ORIGIN="$(git -C "$SOURCE" remote get-url origin)"
 [[ "$ORIGIN" == "$REPO" || "$ORIGIN" == 'https://github.com/aistockland-web/Erp-version-16.1.89' ]] || { echo "Unexpected source origin: $ORIGIN" >&2; exit 1; }
